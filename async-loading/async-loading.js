@@ -1,43 +1,66 @@
 'use-strict';
 
 
-// DOM elements
-const btn = document.querySelector('.btn-country');
-const countriesContainer = document.querySelector('.countries');
 
+// elements
+const imgContainer = document.querySelector('.images'); 
+
+// helper function with promisifyed timeout
 const wait = function (seconds) {
   return new Promise(function (resolve) {
     setTimeout(resolve, seconds * 1000);
   });
 };
 
-let img = document.createElement('img');
-const imgContainer = document.querySelector('.images'); 
-
 const createImage = function (imgPath) {
   return new Promise(function (resolve, reject) {
-    
+    const img = document.createElement('img');
+
     //set source attribute
     img.src = imgPath;
 
     // resolve promise if image is loaded, reject otherwise
-    img.addEventListener('load', resolve(img)); 
+    img.addEventListener('load', function()
+    { 
+      imgContainer.append(img); 
+      resolve(img); 
+    }); 
     img.addEventListener('error', reject(new Error('promise reject-ception'))); 
   },
     // error handling
     err => new Error('could not load image')
   )
 }
-
-createImage('img\\img-1.jpg')
-  // add image to dom 
-  .then(img => imgContainer.append(img))
-  .then(() => wait(2))
-  .then(() => {
-    img.style.display = 'none'; 
-    return createImage('img\\img-2.jpg');
-  })
-  // display error
-  .catch(err=> console.error(err))
-  .finally(); 
   
+const loadNPause = async function () {
+  try {
+    // create first
+    img = await createImage('img\\img-1.jpg');
+    imgContainer.append(img); 
+
+    await wait(2); 
+
+    img.style.display = 'none'; 
+
+    // create second
+    img = await createImage('img\\img-2.jpg');
+   
+    
+  } catch (err) {
+    console.error(err); 
+  }
+}
+
+const loadAll = async function (imgArr) {
+  try {
+    const imgs = await Promise.all(
+      imgArr.map(async img => await createImage(img))
+    )
+
+    imgs.forEach(i => i.classList.add('parallel'));
+  } catch {
+    
+  }
+}
+
+loadAll(['img\\img-1.jpg', 'img\\img-2.jpg']); 
