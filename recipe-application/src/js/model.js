@@ -3,6 +3,9 @@
 // -- handles current recipe, bookmarks and search functionality
 // -- exports load recipe
 
+import { API_URL } from "./config";
+import { getJSON } from "./helpers";
+
 export const state = {
   recipe: {},
 };
@@ -10,12 +13,8 @@ export const state = {
 export const loadRecipe = async function (id) {
   try {
     // load static recipe
-    const res = await fetch(
-      `https://forkify-api.herokuapp.com/api/get?rId=${id}`
-    );
-    const data = await res.json();
-    if (!res.ok) throw new Error(`${data.message} (${res.status})`);
-    
+    const data = await getJSON(`${API_URL}get?rId=${id}`);
+
     // refactor data
     let { recipe } = data;
     state.recipe = {
@@ -27,6 +26,7 @@ export const loadRecipe = async function (id) {
       ingredients: recipe.ingredients,
       };
   } catch (err) {
+    // temp error handling
     console.error(err);
   }
 };
