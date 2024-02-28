@@ -19,6 +19,11 @@ class RecipeView {
     this.#parentElement.innerHTML = '';
   }
 
+  addHandlerRender(handler) {
+    // switch between recipes
+    ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, handler));
+  }
+
   #generateMarkup() {
     return `
         <figure class="recipe__fig">
