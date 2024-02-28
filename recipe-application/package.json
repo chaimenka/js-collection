@@ -1,0 +1,20 @@
+{
+  "name": "forkify",
+  "version": "1.0.0",
+  "description": "Recipe application",
+  "main": "script.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "charlotte",
+  "license": "ISC",
+  "dependencies": {
+    "parcel": "^2.11.0",
+    "sass": "^1.71.1"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.11.0"
+  }
+}
