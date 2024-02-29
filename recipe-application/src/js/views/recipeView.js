@@ -1,10 +1,10 @@
 import icons from 'url:../../img/icons.svg'; // Parcel 2
 import View from './view';
 
-class RecipeView extends View{
-    _parentElement = document.querySelector('.recipe');
-    _errorMessage = 'we could not find a recipe';
-    _message = ''; 
+class RecipeView extends View {
+  _parentElement = document.querySelector('.recipe');
+  _errorMessage = 'we could not find a recipe';
+  _message = '';
 
   addHandlerRender(handler) {
     // switch between recipes
@@ -111,8 +111,6 @@ class RecipeView extends View{
           </a>
         </div>`;
   }
-
- 
 }
 
 export default new RecipeView();

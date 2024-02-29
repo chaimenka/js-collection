@@ -24,6 +24,9 @@ const controlRecipes = async function () {
     // loading icon
     recipeView.renderSpinner();
 
+    // mark selected search result
+    resultsView.update(model.getSearchResultsPage()); 
+
     await model.loadRecipe(id);
 
     // render recipe
@@ -55,6 +58,7 @@ const controlSearchResults = async function () {
 
     // render pagination buttons
     paginationView.render(model.state.search); 
+
 
   } catch (err) {
     resultsView.renderError();
