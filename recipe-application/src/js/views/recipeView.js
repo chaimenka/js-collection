@@ -11,6 +11,15 @@ class RecipeView extends View {
     ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, handler));
   }
 
+  addHandlerAddBookmark(handler) {
+    this._parentElement.addEventListener('click', function (e) {
+      const btn = e.target.closest('.btn--bookmark'); 
+      if (!btn) return; 
+      handler(); 
+    }); 
+    
+  }
+
   _generateMarkup() {
     return `
         <figure class="recipe__fig">
@@ -40,12 +49,12 @@ class RecipeView extends View {
             <div class="recipe__info-buttons">
               <button class="btn--tiny btn--increase-servings">
                 <svg>
-                  <use href="src/img/icons.svg#icon-minus-circle"></use>
+                  <use href="${icons}#icon-minus-circle"></use>
                 </svg>
               </button>
               <button class="btn--tiny btn--increase-servings">
                 <svg>
-                  <use href="src/img/icons.svg#icon-plus-circle"></use>
+                  <use href="${icons}#icon-plus-circle"></use>
                 </svg>
               </button>
             </div>
@@ -53,12 +62,12 @@ class RecipeView extends View {
 
           <div class="recipe__user-generated">
             <svg>
-              <use href="src/img/icons.svg#icon-user"></use>
+              <use href="${icons}#icon-user"></use>
             </svg>
           </div>
-          <button class="btn--round">
+          <button class="btn--round btn--bookmark">
             <svg class="">
-              <use href="src/img/icons.svg#icon-bookmark-fill"></use>
+              <use href="${icons}#icon-bookmark${this._data.bookmarked? '-fill':''}"></use>
             </svg>
           </button>
         </div>
@@ -71,7 +80,7 @@ class RecipeView extends View {
                 return ` 
                 <li class="recipe__ingredient">
                   <svg class="recipe__icon">
-                    <use href="src/img/icons.svg#icon-check"></use>
+                    <use href="${icons}#icon-check"></use>
                   </svg>
                   <div class="recipe__description">${ing}</div>
                 </li>`;
@@ -79,7 +88,7 @@ class RecipeView extends View {
               .join('')}
             <li class="recipe__ingredient">
               <svg class="recipe__icon">
-                <use href="src/img/icons.svg#icon-check"></use>
+                <use href="${icons}#icon-check"></use>
               </svg>
               <div class="recipe__quantity">0.5</div>
               <div class="recipe__description">
@@ -106,7 +115,7 @@ class RecipeView extends View {
           >
             <span>Directions</span>
             <svg class="search__icon">
-              <use href="src/img/icons.svg#icon-arrow-right"></use>
+              <use href="${icons}#icon-arrow-right"></use>
             </svg>
           </a>
         </div>`;

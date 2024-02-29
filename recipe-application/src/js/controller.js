@@ -9,7 +9,7 @@ import paginationView from './views/paginationView.js';
 
 // // parcel hot reloading
 // if (model.hot) {
-//   model.hot.accept(); 
+//   model.hot.accept();
 // }
 
 const recipeContainer = document.querySelector('.recipe');
@@ -25,7 +25,7 @@ const controlRecipes = async function () {
     recipeView.renderSpinner();
 
     // mark selected search result
-    resultsView.update(model.getSearchResultsPage()); 
+    resultsView.update(model.getSearchResultsPage());
 
     await model.loadRecipe(id);
 
@@ -38,13 +38,14 @@ const controlRecipes = async function () {
 
 const init = function () {
   recipeView.addHandlerRender(controlRecipes);
-  searchView.addHandlerSearch(controlSearchResults); 
-  paginationView.addHandlerClick(controlPagination); 
+  searchView.addHandlerSearch(controlSearchResults);
+  paginationView.addHandlerClick(controlPagination);
+  recipeView.addHandlerAddBookmark(controlAddBookmark);
 };
 
 const controlSearchResults = async function () {
   try {
-    resultsView.renderSpinner(); 
+    resultsView.renderSpinner();
 
     // get search query
     const query = searchView.getQuery();
@@ -54,12 +55,10 @@ const controlSearchResults = async function () {
     await model.loadSearchResult(query);
 
     // render results
-    resultsView.render(model.getSearchResultsPage(1)); 
+    resultsView.render(model.getSearchResultsPage(1));
 
     // render pagination buttons
-    paginationView.render(model.state.search); 
-
-
+    paginationView.render(model.state.search);
   } catch (err) {
     resultsView.renderError();
   }
@@ -71,8 +70,16 @@ const controlPagination = function (goToPage) {
 
   // render new pagination buttons
   paginationView.render(model.state.search);
-}
+};
 
+const controlAddBookmark = function () {
+  if (!model.state.recipe.bookmarked)
+    model.addBookmark(model.state.recipe);
+  else
+    model.deleteBookmark(model.state.recipe.id);
+
+  recipeView.update(model.state.recipe);
+};
 
 init();
 controlSearchResults();
