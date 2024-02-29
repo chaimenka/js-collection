@@ -4,6 +4,12 @@ import 'regenerator-runtime/runtime'; // polyfill async/await
 import * as model from './model.js';
 import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
+import resultsView from './views/resultsView.js';
+
+// parcel hot reloading
+if (model.hot) {
+  model.hot.accept(); 
+}
 
 const recipeContainer = document.querySelector('.recipe');
 
@@ -33,6 +39,8 @@ const init = function () {
 
 const controlSearchResults = async function () {
   try {
+    resultsView.renderSpinner(); 
+
     // get search query
     const query = searchView.getQuery();
     if (!query) return;
@@ -41,11 +49,12 @@ const controlSearchResults = async function () {
     await model.loadSearchResult(query);
 
     // render results
-    console.log(model.state.search.results); 
+    resultsView.render(model.state.search.results); 
   } catch (err) {
-    console.log(err);
+    resultsView.renderError(err); 
   }
 };
+
 
 init();
 controlSearchResults();
