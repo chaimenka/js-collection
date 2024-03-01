@@ -8,6 +8,7 @@ import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
 import bookmarksView from './views/bookmarksView.js';
 import addRecipeView from './views/addRecipeView.js';
+import addRecipeView from './views/addRecipeView.js';
 
 // // parcel hot reloading
 // if (model.hot) {
