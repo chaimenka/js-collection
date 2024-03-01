@@ -5,7 +5,9 @@
 
 import { API_URL } from "./config";
 import { getJSON } from "./helpers";
+import { sentJSON } from "./helpers";
 import { RES_PER_PAGE } from "./config"; 
+
 
 export const state = {
     recipe: {},
@@ -113,6 +115,38 @@ const init = function () {
 // debugger function
 const clearBookmarks = function(){
     localStorage.clear('bookmarks');
+}
+
+export const uploadRecipe = async function (newRecipe) {
+    try {
+        const ingredients = Object.entries(newRecipe)
+            .filter(
+            entry => entry[0].startsWith('ingredient') && entry[1] !== ''
+            ).map(ing => {
+                const ingArr = ing[1].split(',').map(el => el.trim());
+                if (ingArr.length !== 3)
+                throw new Error(
+                    'Wrong ingredient fromat! Please use the correct format :)'
+                    );
+                const [quantity, unit, description] = ingArr;
+                return `${quantity ? quantity : ''} ${unit} ${description}`; 
+            }
+        ); 
+
+        console.log(ingredients)
+        const recipe = {
+            id: newRecipe.recipe_id,
+            title: newRecipe.title,
+            publisher: newRecipe.publisher,
+            sourceUrl: newRecipe.source_url,
+            image: newRecipe.image_url,
+            ingredients,
+        };
+
+        sentJSON(`${API_URL}`, recipe); 
+    } catch (err) {
+        throw err; 
+    }
 }
 
 init(); 

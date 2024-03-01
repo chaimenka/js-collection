@@ -3,7 +3,7 @@ import View from './view';
 
 class RecipeView extends View {
   _parentElement = document.querySelector('.recipe');
-  _errorMessage = 'we could not find a recipe';
+  _errorMessage = 'no recipe found';
   _message = '';
 
   addHandlerRender(handler) {
