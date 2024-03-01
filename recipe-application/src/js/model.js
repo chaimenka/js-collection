@@ -55,18 +55,27 @@ export const loadSearchResult = async function (query) {
             };
         }); 
         state.search.page = 1; 
+        console.log(
+          `*** found ${state.search.results.length} results (${API_URL}search?q=${query})`
+        );
     } catch (err) {
         throw err; 
     }
     
 }
 
+const persistBookmarks = function () {
+    localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks)); 
+}
+
 export const getSearchResultsPage = function (page = state.search.page) {
     const start = (page - 1) * state.search.resultsPerPage; 
     const end = page * state.search.resultsPerPage; 
     state.search.page = page; 
-
-    return state.search.results.slice(start, end); 
+    
+    const results = state.search.results.slice(start, end);
+    console.log(`*** found ${results.length} entries for page ${page}`); 
+    return results; 
 }
 
 
@@ -77,6 +86,8 @@ export const addBookmark = function (recipe) {
     // mark current recipe as bookmark
     if (recipe.id === state.recipe.id)
         state.recipe.bookmarked = true; 
+
+    persistBookmarks(); 
 }
 
 export const deleteBookmark = function (id) {
@@ -85,4 +96,5 @@ export const deleteBookmark = function (id) {
 
   // mark current recipe as not bookmarked
   if (id === state.recipe.id) state.recipe.bookmarked = false;
+    persistBookmarks(); 
 }

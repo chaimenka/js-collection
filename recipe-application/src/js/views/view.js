@@ -35,16 +35,20 @@ export default class View {
     
   }
 
-  render(data) {
-
+  render(data, render = true) {
     this._data = data;
     const markup = this._generateMarkup();
+
+    if (!render) {
+      return markup
+    }; 
 
     // empty container
     this._clear();
 
     // insert recipe
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
+    console.log(`*** rendered markup at ${this._parentElement}`)
   }
 
   // helper function to load images
@@ -55,8 +59,10 @@ export default class View {
             <use href="${icons}#icon-loader"></use>
         </svg>
         </div>`;
+        
     this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
+    console.log('*** rendered spinner'); 
   }
 
   renderError(message = this._errorMessage) {
