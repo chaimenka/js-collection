@@ -7,6 +7,7 @@ import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
 import bookmarksView from './views/bookmarksView.js';
+import addRecipeView from './views/addRecipeView.js';
 
 // // parcel hot reloading
 // if (model.hot) {
@@ -46,6 +47,7 @@ const init = function () {
   paginationView.addHandlerClick(controlPagination);
   recipeView.addHandlerAddBookmark(controlAddBookmark);
   bookmarksView.addHandlerRender(controlRenderBookmark);
+  addRecipeView.addHandlerUpload(controlAddRecipe); 
   console.log('*** initialized controller'); 
 };
 
@@ -87,6 +89,10 @@ const controlPagination = function (goToPage) {
 
 const controlRenderBookmark = function () {
   bookmarksView.render(model.state.bookmarks); 
+}
+
+const controlAddRecipe = function (newRecipe) {
+  console.log(newRecipe); 
 }
 
 const controlAddBookmark = function () {
