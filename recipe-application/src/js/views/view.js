@@ -4,10 +4,9 @@ export default class View {
   _data;
 
   update(data) {
-
     this._data = data;
     const markup = this._generateMarkup();
-
+    
     // creates virtual dom for comparison
     const newDOM = document.createRange().createContextualFragment(markup);
     const newElements = Array.from(newDOM.querySelectorAll('*'));
@@ -31,8 +30,6 @@ export default class View {
         );
       }
     }); 
-
-    
   }
 
   render(data, render = true) {

@@ -64,9 +64,7 @@ export const loadSearchResult = async function (query) {
     
 }
 
-const persistBookmarks = function () {
-    localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks)); 
-}
+
 
 export const getSearchResultsPage = function (page = state.search.page) {
     const start = (page - 1) * state.search.resultsPerPage; 
@@ -78,6 +76,10 @@ export const getSearchResultsPage = function (page = state.search.page) {
     return results; 
 }
 
+const persistBookmarks = function () {
+  localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
+};
+
 
 export const addBookmark = function (recipe) {
     // add bookmark
@@ -88,6 +90,7 @@ export const addBookmark = function (recipe) {
         state.recipe.bookmarked = true; 
 
     persistBookmarks(); 
+    console.log(`*** added bookmark with id ${recipe.id}`); 
 }
 
 export const deleteBookmark = function (id) {
@@ -97,4 +100,19 @@ export const deleteBookmark = function (id) {
   // mark current recipe as not bookmarked
   if (id === state.recipe.id) state.recipe.bookmarked = false;
     persistBookmarks(); 
+
+    console.log(`*** removed bookmark with id ${id}`); 
 }
+
+const init = function () {
+    const storage = localStorage.getItem('bookmarks'); 
+    if (storage) state.bookmarks = JSON.parse(storage); 
+    console.log('*** initialized model')
+}
+
+// debugger function
+const clearBookmarks = function(){
+    localStorage.clear('bookmarks');
+}
+
+init(); 
