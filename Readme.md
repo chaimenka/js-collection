@@ -16,4 +16,4 @@ Small test script to implement reverse geocoding with [geocodify](https://geocod
 ## async-loading
 Project from online course[^1]. Small test script to load images asynchrounous. 
 
-[^1] Project from online course from [Jonas Schmedtman](https://www.udemy.com/course/the-complete-javascript-course/learn/lecture/22648969#overview) (68.5h in total). Html and css files are used from course material, .js files are my own following the lecture. 
+[^1]: Project from online course from [Jonas Schmedtman](https://www.udemy.com/course/the-complete-javascript-course/learn/lecture/22648969#overview) (68.5h in total). Html and css files are used from course material, .js files are my own following the lecture. 
