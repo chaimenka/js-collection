@@ -6,17 +6,16 @@ import styles from './Map.module.css'
 import { useCities } from '../contexts/CitiesContext';
 import { useGeolocation } from '../hooks/useGeolocation';
 import Button from './Button';
+import { useUrlPosition } from '../hooks/useUrlPosition';
 
 function Map() {
     const { cities } = useCities(); /** custom hook from city context */
     const { isLoading:isLoadingPosition, position:geoLocationPosition, error, getPosition } = useGeolocation(); /** custom hook */
 
   const [mapPosition, setMapPosition] = useState([40, 0,]); /** array with [lat, lng] */
-  const [searchParams] = useSearchParams(); /** react hook to get search query from url */
-
-  const mapLat = searchParams.get("lat");
-    const mapLng = searchParams.get("lng");
     
+    const [mapLat, mapLng] = useUrlPosition();
+
     useEffect(function () {
         if(mapLat && mapLng)
             setMapPosition([mapLat, mapLng])
@@ -69,7 +68,7 @@ function DetectClick() {
     const navigate = useNavigate(); /** react hook for imparative navigation */
     useMapEvents({
         click: (e) => {
-            navigate(`form?${e.latlng.lat}&${e.latlng.lng}`)
+            navigate(`form?lat=${e.latlng.lat}&lng=${e.latlng.lng}`)
         }
     })
 }
