@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import Product from "./pages/Product";
@@ -48,18 +48,19 @@ function App() {
         <Route path="app" element={<AppLayout />}>
           <Route
             index
-            element={<CityList cities={cities} isLoading={isLoading} />}
+            /** replace last page in history stack. normally only used for this usecase. navigate hook otherwise */
+            element={<Navigate replace to="cities" />}
           />
           <Route
             path="cities"
             element={<CityList cities={cities} isLoading={false} />}
           />
-          <Route path= "cities/:id" element={<City/>}/>
+          <Route path="cities/:id" element={<City />} />
           <Route
             path="countries"
             element={<CountryList cities={cities} isLoading={isLoading} />}
           />
-          <Route path="form" element={<Form/>} />
+          <Route path="form" element={<Form />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>
         <Route path="*" element={<PageNotFound />} />
