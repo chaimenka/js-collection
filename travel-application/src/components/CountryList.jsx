@@ -3,11 +3,9 @@ import styles from "./CountryList.module.css";
 import Spinner from './Spinner'; 
 import Message from './Message';
 
-  /* eslint no-unused-vars: "warn" */
-
 function CountryList(city, isLoading) {
 
-    if (isLoading) return <Spinner />; 
+    if (!isLoading) return <Spinner />; 
 
     // handle empty country array
     if (!city?.length) return <Message message="Add your first country" />;
