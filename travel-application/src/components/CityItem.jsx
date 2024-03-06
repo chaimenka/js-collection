@@ -11,7 +11,7 @@ const formatDate = (date) =>
   /* eslint react/prop-types: "warn" */
 function CityItem({ city }) {
     const { cityName, emoji, date } = city; 
-    console.log(cityName); 
+
     return (
         <li className={styles.cityItem}>
             <span className={styles.emoji}>{emoji}</span>

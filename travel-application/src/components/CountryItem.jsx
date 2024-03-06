@@ -1,5 +1,6 @@
 import styles from "./CountryItem.module.css";
 
+  /* eslint react/prop-types: "warn" */
 function CountryItem({ country }) {
   return (
     <li className={styles.countryItem}>
