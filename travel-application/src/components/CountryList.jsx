@@ -2,16 +2,18 @@ import CountryItem from "./CountryItem";
 import styles from "./CountryList.module.css";
 import Spinner from './Spinner'; 
 import Message from './Message';
+import { useCities } from "../contexts/CitiesContext";
 
-function CountryList(city, isLoading) {
+function CountryList() {
+  const { cities, isLoading } = useCities(); 
 
-    if (!isLoading) return <Spinner />; 
+    if (isLoading) return <Spinner />; 
 
     // handle empty country array
-    if (!city?.length) return <Message message="Add your first country" />;
+    if (!cities?.length) return <Message message="Add your first country" />;
 
   // add new element to array, if its city is not already included
-  const countries = city.reduce((arr, city) => {
+  const countries = cities.reduce((arr, city) => {
     if (!arr.map((el) => el.country).includes(city.country))
       return [...arr, { country: city.country, emoji: city.emoji }];
     else return arr;
@@ -20,7 +22,7 @@ function CountryList(city, isLoading) {
     return (
       <ul className={styles.countriesList}>
         {countries.map((country) => (
-          <CountryItem country={country} key={Date()}/>
+          <CountryItem country={country} key={Math.random()}/>
         ))}
       </ul>
     );
