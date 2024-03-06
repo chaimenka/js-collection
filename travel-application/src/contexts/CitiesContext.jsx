@@ -22,6 +22,7 @@ const initialState = {
 function CitiesProvider({ children }) {
   const [cities, setCities] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentCity, setCurrentCity] = useState({}); 
 
   /** load on mount */
   useEffect(function () {
@@ -41,11 +42,26 @@ function CitiesProvider({ children }) {
   }, []);
 
 
+  async function getCity(id) {
+    try {
+      setIsLoading(true); 
+      const res = await fetch(`${BASE_URL}/cities/${id}`); 
+      const data = await res.json(); 
+      setCurrentCity(data); 
+    } catch {
+      alert("error loading city data"); 
+    } finally {
+      setIsLoading(false); 
+    }
+  }
+
   return (
     <CitiesContext.Provider
       value={{
         cities,
         isLoading,
+        currentCity,
+        getCity
       }}
     >
       {children}

@@ -5,6 +5,7 @@ import { useState } from "react";
 import styles from "./Form.module.css";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
+import BackButton from "./BackButton";
 
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
@@ -55,12 +56,7 @@ function Form() {
         <Button type="primary" onClick={() => navigate(-1)}>
           Add
         </Button>
-        <Button type="back" onClick={(e) => {
-          e.preventDefault(); /** prevent form submission */     
-          navigate(-1)
-        }}>
-          &larr; Back
-        </Button>
+        <BackButton/>
       </div>
     </form>
   );
