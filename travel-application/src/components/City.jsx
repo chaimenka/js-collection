@@ -24,7 +24,7 @@ function City() {
     function () {
       getCity(id);
     },
-    [id]
+    [id, getCity]
   );
 
   // get latitude and logitude from search params
