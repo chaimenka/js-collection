@@ -4,6 +4,7 @@ import {
   useContext,
   useReducer,
   useCallback,
+  useState,
 } from "react";
 
 const BASE_URL = "http://localhost:9000";
@@ -61,7 +62,9 @@ function reducer(state, action) {
 }
 
 function CitiesProvider({ children }) {
-  const [{ cities, isLoading, currentCity, error }, dispatch] = useReducer(
+
+  const [cities, setCities] = useState([]); 
+  const [{ cityes, isLoading, currentCity, error }, dispatch] = useReducer(
     reducer,
     initialState
   );
@@ -73,12 +76,12 @@ function CitiesProvider({ children }) {
       try {
         const res = await fetch(`${BASE_URL}/cities`);
         const data = await res.json();
-        dispatch({ type: "cities/loaded", payload: data });
+        //dispatch({ type: "cities/loaded", payload: data });
       } catch {
-        dispatch({
-          type: "rejected",
-          payload: "There was an error loading cities...",
-        });
+        // dispatch({
+        //   type: "rejected",
+        //   payload: "There was an error loading cities...",
+        // });
       }
     }
     fetchCities();
@@ -105,7 +108,7 @@ function CitiesProvider({ children }) {
   );
 
   async function createCity(newCity) {
-    dispatch({ type: "loading" });
+    // dispatch({ type: "loading" });
 
     try {
       const res = await fetch(`${BASE_URL}/cities`, {
@@ -117,7 +120,9 @@ function CitiesProvider({ children }) {
       });
       const data = await res.json();
 
-      dispatch({ type: "city/created", payload: data });
+      setCities((cities => [...cities, data])); 
+
+      // dispatch({ type: "city/created", payload: data });
     } catch {
       dispatch({
         type: "rejected",

@@ -16,6 +16,7 @@ import { CitiesProvider } from "./contexts/CitiesContext";
 const BASE_URL = 'http://localhost:8000'; 
 
 function App() {
+  console.log("*** start application"); 
 
   return (
     <CitiesProvider>

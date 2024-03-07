@@ -3,8 +3,6 @@ import {
   useEffect,
   useState,
   useContext,
-  useReducer,
-  useCallback,
 } from "react";
 
 const BASE_URL = "http://localhost:8000";
@@ -22,12 +20,13 @@ const initialState = {
 function CitiesProvider({ children }) {
   const [cities, setCities] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [currentCity, setCurrentCity] = useState({}); 
+  const [currentCity, setCurrentCity] = useState({});
 
   /** load on mount */
   useEffect(function () {
     async function fetchCities() {
       try {
+        console.log("*** fetch all cities")
         setIsLoading(true);
         const res = await fetch(`${BASE_URL}/cities`);
         const data = await res.json();
@@ -44,29 +43,56 @@ function CitiesProvider({ children }) {
 
   async function getCity(id) {
     try {
-      setIsLoading(true); 
-      const res = await fetch(`${BASE_URL}/cities/${id}`); 
-      const data = await res.json(); 
-      setCurrentCity(data); 
+      console.log(`*** get city with id:${id}` )
+      setIsLoading(true);
+      const res = await fetch(`${BASE_URL}/cities/${id}`);
+      const data = await res.json();
+      setCurrentCity(data);
     } catch {
-      alert("error loading city data"); 
+      alert("error loading city data");
     } finally {
-      setIsLoading(false); 
+      setIsLoading(false);
     }
   }
 
-  return (
-    <CitiesContext.Provider
-      value={{
-        cities,
-        isLoading,
-        currentCity,
-        getCity
-      }}
-    >
-      {children}
-    </CitiesContext.Provider>
-  );
+  async function createCity(newCity) {
+
+    try {
+      console.log("***creating city");
+      setIsLoading(true);
+      const res = await fetch(`${BASE_URL}/cities`, {
+        method: "POST",
+        body: JSON.stringify(newCity),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      // setCurrentCity(data)
+      setCities((cities) => [...cities, data]); 
+
+    } catch {
+      alert("Error loading data ...");
+    }
+    finally {
+      setIsLoading(false);
+    }
+  }
+
+    return (
+      <CitiesContext.Provider
+        value={{
+          cities,
+          isLoading,
+          currentCity,
+          getCity,
+          createCity,
+        }}
+      >
+        {children}
+      </CitiesContext.Provider>
+    );
+  
 }
 
 function useCities() {
