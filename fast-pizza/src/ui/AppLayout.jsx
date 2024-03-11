@@ -15,13 +15,15 @@ function AppLayout() {
 
   return (
     <div className="layout">
-      {isLoading && <Loader/>}  {/** conditional rendering */}
+      {isLoading && <Loader />} {/** conditional rendering */}
       <Header />
       <main>
-        <h1> Content </h1>
-        <Outlet/> {/** render children */}
+        <h1 className="text-xl text-yellow-500 font-semibold text-center">
+          Content
+        </h1>
+        <Outlet /> {/** render children */}
       </main>
-          <CartOverview/>
+      <CartOverview />
     </div>
   );
 }
