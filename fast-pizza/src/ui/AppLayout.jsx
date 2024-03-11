@@ -14,15 +14,14 @@ function AppLayout() {
 
 
   return (
-    <div className="layout">
+    <div className="grid h-screen grid-rows-[auto_1fr_auto]">
       {isLoading && <Loader />} {/** conditional rendering */}
       <Header />
-      <main>
-        <h1 className="text-xl text-yellow-500 font-semibold text-center">
-          Content
-        </h1>
-        <Outlet /> {/** render children */}
-      </main>
+      <div className="overflow-scroll">
+        <main className="mx-auto max-w-3xl">
+          <Outlet />
+        </main>
+      </div>
       <CartOverview />
     </div>
   );
