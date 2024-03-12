@@ -6,7 +6,6 @@ function Menu() {
   /** render-as-you fetch approach */
   const menu = useLoaderData(); /** hook, uses loader, which is associated to page in router */
 
-  console.log(menu); 
   return (
     <ul>
     {menu.map(pizza => (<MenuItem pizza={pizza} key={pizza.id} />))}
