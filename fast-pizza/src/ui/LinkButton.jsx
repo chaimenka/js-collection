@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useNavigate, useRouteError } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function LinkButton({ children, to }) {
     const navigate = useNavigate();
