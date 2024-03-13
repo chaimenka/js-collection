@@ -7,6 +7,7 @@ function Button({ children, disabled, to, type, onClick }) {
   const styles = {
     primary: base + ' px-4 py-3 md:px-6 md:py-4',
     small: base + ' px-4 py-2 md:px-5 md:py-2.5 text-xs',
+    round: base + ' px-2.5 py-1 md:px-5 md:py-2.5 text-sm',
     secondary:
       'inline-block text-sm rounded-full border-2 border-zinc-300 font-semibold uppercase tracking-wide text-zinc-400 transition-colors duration-300 hover:bg-zinc-300 hover:text-zinc-800 focus:bg-zinc-300 focus:text-zinc-800 focus:outline-none focus:ring focus:ring-zinc-200 focus:ring-offset-2 disabled:cursor-not-allowed px-4 py-2.5 md:px-6 md:py-3.5',
   };
