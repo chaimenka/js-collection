@@ -5,7 +5,9 @@ Collection of small javascript projects for learning purpose from online courses
 Project from online course [^2]. 
 Test application of a pizza delivery service, containing menu, user log-in, cart and order placement. 
 Learning content: advanced state management and features (useReducer, custom hooks, context API and portals), performance optimization with memo
-Tools: react router, tailwind CSS, redux toolkit, thunks, react query
+Tools: vite, react router, tailwind CSS, redux toolkit, thunks, react query
+
+Deployed on netlify https://main--pizza-delivery-chaimenka.netlify.app/ 
 
 ## recipe-application
 Project from online course[^1].
