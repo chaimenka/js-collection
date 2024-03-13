@@ -2,16 +2,23 @@
 
 import OrderItem from './OrderItem';
 
-import { useLoaderData } from 'react-router-dom';
+import { useFetcher, useLoaderData } from 'react-router-dom';
 import { getOrder } from '../../services/apiRestaurant';
 import {
   calcMinutesLeft,
   formatCurrency,
   formatDate,
 } from '../../utils/helpers';
+import { useEffect } from 'react';
 
 function Order() {
   const order = useLoaderData();
+  const fetcher = useFetcher(); 
+
+  // get data on mounting
+  useEffect(function () {
+    if (!fetcher.data && fetcher.state === 'idle') fetcher.load(('/menu')); 
+  }, [fetcher])
 
   // Everyone can search for all orders, so for privacy reasons we're gonna gonna exclude names or address, these are only for the restaurant staff
   const {
@@ -53,14 +60,20 @@ function Order() {
           (Estimated delivery: {formatDate(estimatedDelivery)})
         </p>
       </div>
-
+      
+      {/** order item */}
       <ul className="dive-zinc-200 divide-y border-b border-t">
         {cart.map((item) => (
-          <OrderItem item={item} key={item.pizzaId} />
+          <OrderItem
+            item={item}
+            key={item.pizzaId}
+            isLoadingIngredients={ fetcher.state === 'loading'}
+            ingredients={fetcher?.data?.find((el) => el.id === item.pizzaId)?.ingredients ?? []}
+          />
         ))}
       </ul>
 
-      <div className="space-y-2 bg-zinc-200 px-6 py-5">
+      <div className="space-y-2 bg-zinc-200 px-6 py-5"> 
         <p className="text-sm font-medium text-zinc-600">
           Price pizza: {formatCurrency(orderPrice)}
         </p>

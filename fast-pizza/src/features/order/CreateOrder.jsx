@@ -84,7 +84,7 @@ function CreateOrder() {
           </div>
 
         {/** get address button*/}
-        {!position.latitude && !position.longitude && <span className='absolute right-[3px] z-50 top-[3px] md:right-[5px] md:top-[5px]'>
+        {(!position.latitude && !position.longitude) && <span className='absolute right-[3px] z-50 top-[3px] md:right-[5px] md:top-[5px]'>
             <Button type='small' onClick={(e) => {
               e.preventDefault(); 
               dispatch(fetchAddress())
@@ -111,8 +111,8 @@ function CreateOrder() {
 
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
-          <input type="hidden" name="position" value={position.longitude && position.latitude ?
-            `${position.latitude},${position.longitude}`
+          <input type="hidden" name="position" value={position.longitude && position.latitude
+            ? `${position.latitude},${position.longitude}`
             : ''} />
           <Button disabled={isSubmitting || isLoadingAddress} type="primary">
             {isSubmitting ? 'Placing order....' : `Order now from ${formatCurrency(totalPrice)}`}
