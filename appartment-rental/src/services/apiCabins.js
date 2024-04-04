@@ -39,14 +39,12 @@ export async function createEditCabin(newCabin, id) {
   // create new cabin
   if (!id) {
     query = query
-      .from("cabins")
       .insert([{ ...newCabin, image: imagePath }]);
   }
 
   // edit cabin
   if (id) {
     query = query
-      .from("cabins")
       .update({ ...newCabin, image: imagePath })
       .eq("id", id);
   }
