@@ -33,4 +33,4 @@ function AddCabin() {
 //     );
 // }
 
-// export default AddCabin;
+export default AddCabin;
