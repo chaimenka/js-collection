@@ -1,5 +1,13 @@
 # Js-collection
-Collection of small javascript projects for learning purpose from online courses[^1][^2]. 
+Collection of small javascript projects for learning purpose from online courses[^1][^2]. The biggest project in this collection is the appartment-rental website. 
+
+## appartment-rental
+Project from online course [^2]. 
+Test application of appartment rental website containing booking and cabin management. 
+Learning content: render props, higher-order components, compound components
+Tools: Vite, supabase, tailwind CSS
+
+Deployed on netlify 
 
 ## pizza-delivery
 Project from online course [^2]. 
