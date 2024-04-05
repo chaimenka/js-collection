@@ -7,7 +7,7 @@ Test application of appartment rental website containing booking and cabin manag
 Learning content: render props, higher-order components, compound components
 Tools: Vite, supabase, tailwind CSS
 
-Deployed on netlify https://appartment-rental-chaimenka.netlify.app/cabins 
+Deployed on netlify https://appartment-rental-chaimenka.netlify.app 
 
 ## pizza-delivery
 Project from online course [^2]. 
