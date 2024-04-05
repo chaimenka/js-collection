@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
 import CreateCabinForm from "./CreateCabinForm";
-import { useState } from "react";
 import { useDeleteCabin } from "./useDeleteCabins";
 import { HiPencil } from "react-icons/hi";
 import { HiTrash } from "react-icons/hi";
@@ -48,7 +47,6 @@ function CabinRow({ cabin }) {
     discount,
     image,
   } = cabin;
-  const [showForm, setShowForm] = useState(false);
   const { isDeleting, deleteCabin } = useDeleteCabin();
   const { isCreating, createCabin } = useCreateCabin();
 
@@ -80,7 +78,7 @@ function CabinRow({ cabin }) {
           <Menus.Menu>
             <Menus.Toggle id={cabinId} />
             <Menus.List id={cabinId}>
-              <Menus.Button onClick={handleDublicate} icon={<HiSquare2Stack />}>
+              <Menus.Button onClick={handleDublicate} icon={<HiSquare2Stack disabled={isCreating} />}>
                 Duplicate
               </Menus.Button>
 

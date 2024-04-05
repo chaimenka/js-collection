@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
@@ -22,10 +21,6 @@ const queryClient = new QueryClient({
     },
   },
 }); 
-
-const StyledApp = styled.main`
-  padding: 20px;
-`;
 
 function App() {
   return (
